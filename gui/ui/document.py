@@ -36,3 +36,29 @@ class AddDocumentWindow(QMainWindow):
         new_doc.add(self.tag_input.text())
         new_doc.save_to_db()
         self.close()
+
+class EditDocumentWindow(QMainWindow):
+    def __init__(self, parent, fileinfo):
+        super().__init__(parent)
+        self.fileinfo = fileinfo
+        self.setWindowTitle('Edit tags')
+        self.main_widget = QWidget(self)
+        self.layout = QVBoxLayout(self)
+
+        self.tag_input = QLineEdit(self)
+        self.tag_input.setText(fileinfo.tags)
+
+        save_button = QPushButton('Save')
+        save_button.clicked.connect(self.edit_document)
+
+        self.layout.addWidget(self.tag_input)
+        self.layout.addWidget(save_button)
+
+        self.main_widget.setLayout(self.layout)
+        self.setCentralWidget(self.main_widget)
+
+    def edit_document(self):
+        doc = Document(self.fileinfo.file_name)
+        doc.edit(self.tag_input.text())
+        doc.save_to_db()
+        self.close()

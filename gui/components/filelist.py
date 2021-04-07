@@ -3,6 +3,7 @@ import PyQt5.QtCore
 from PyQt5.QtCore import Qt
 from .property import PropertyWindow
 from backend.utils import open_prog
+from ..ui.document import EditDocumentWindow
 
 class FileList(QDockWidget):
     def __init__(self, parent):
@@ -23,11 +24,18 @@ class FileList(QDockWidget):
         open_action.triggered.connect(self.open_file)
         info_action = QAction('Info', self)
         info_action.triggered.connect(self.open_properties)
+        edit_action = QAction('Edit', self)
+        edit_action.triggered.connect(self.open_edit)
 
         menu.addAction(open_action)
         menu.addAction(info_action)
+        menu.addAction(edit_action)
 
         menu.exec_(self.listview.mapToGlobal(position))
+
+    def open_edit(self):
+        edit_window = EditDocumentWindow(self, self.listview.selectedItems()[0].data(Qt.UserRole))
+        edit_window.show()
 
     def open_properties(self):
         try:
