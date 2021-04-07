@@ -30,7 +30,9 @@ class FileList(QDockWidget):
         self.parent.addDockWidget(Qt.RightDockWidgetArea, properties)
 
     def item_clicked(self, event):
-        print(event.text())
+        file_to_open = event.data(Qt.UserRole).file_path + "/" +  event.data(Qt.UserRole).file_name
+        open_prog(file_to_open)
+        
 
     def add_file(self, file_objects, clear=True):
         if clear:
