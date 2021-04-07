@@ -11,6 +11,7 @@ class Gui(QMainWindow):
         super().__init__()
         self.resize(800, 600)
         self.setWindowTitle('Tagz GUI')
+        self.setAcceptDrops(True)
 
         self.central_widget = QWidget(self)
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -52,6 +53,19 @@ class Gui(QMainWindow):
             add_document = AddDocumentWindow(self, fileName)
             add_document.show()
             print(fileName)
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        files = [u.toLocalFile() for u in event.mimeData().urls()]
+        for f in files:
+            print(f)
+            add_document = AddDocumentWindow(self, f)
+            add_document.show()
 
 
 if __name__ == '__main__':
