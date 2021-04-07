@@ -26,8 +26,11 @@ class FileList(QDockWidget):
         menu.exec_(self.listview.mapToGlobal(position))
 
     def open_properties(self):
-        properties = PropertyWindow(self.listview.selectedItems()[0].data(Qt.UserRole))
-        self.parent.addDockWidget(Qt.RightDockWidgetArea, properties)
+        try:
+            properties = PropertyWindow(self.listview.selectedItems()[0].data(Qt.UserRole))
+            self.parent.addDockWidget(Qt.RightDockWidgetArea, properties)
+        except IndexError:
+            pass
 
     def item_clicked(self, event):
         file_to_open = event.data(Qt.UserRole).file_path + "/" +  event.data(Qt.UserRole).file_name
