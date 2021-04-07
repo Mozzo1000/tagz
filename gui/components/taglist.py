@@ -1,5 +1,4 @@
-from PyQt5.QtWidgets import QDockWidget, QListWidget, QListWidgetItem, QMenu, QAction
-import PyQt5.QtCore
+from PyQt5.QtWidgets import QDockWidget, QListWidget, QListWidgetItem, QMenu, QAction, QLineEdit, QWidget, QVBoxLayout
 from PyQt5.QtCore import Qt
 from lib.tags import Tags
 import csv
@@ -10,18 +9,37 @@ class TagList(QDockWidget):
         super().__init__()
         self.filelist = filelist
         self.setWindowTitle('Tags')
+        self.main_widget = QWidget(self)
+        self.layout = QVBoxLayout(self)
 
         self.listview = QListWidget()
         self.listview.itemDoubleClicked.connect(self.item_clicked)
         self.listview.setContextMenuPolicy(Qt.CustomContextMenu)
         self.listview.customContextMenuRequested.connect(self.open_action_menu)
 
+        self.search_input = QLineEdit()
+        self.search_input.setPlaceholderText('Search...')
+        self.search_input.textChanged.connect(self.search_changed)
+
+
         self.tags = Tags()
 
         self.populate_list()
         
-        self.setWidget(self.listview)
+        self.layout.addWidget(self.search_input)
+        self.layout.addWidget(self.listview)
 
+        self.main_widget.setLayout(self.layout)
+        self.setWidget(self.main_widget)
+
+    def search_changed(self, event):
+        items = self.listview.findItems(event, Qt.MatchContains)
+        all_items = self.listview.findItems('*', Qt.MatchWildcard)
+        for item in all_items:
+            item.setHidden(True)
+        for item in items:
+            item.setHidden(False)
+    
     def open_action_menu(self, position):
         menu = QMenu()
         refresh_action = QAction('Refresh', self)
