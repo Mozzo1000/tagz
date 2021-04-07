@@ -19,8 +19,12 @@ class FileList(QDockWidget):
 
     def open_action_menu(self, position):
         menu = QMenu()
+        open_action = QAction('Open', self)
+        open_action.triggered.connect(self.open_file)
         info_action = QAction('Info', self)
         info_action.triggered.connect(self.open_properties)
+
+        menu.addAction(open_action)
         menu.addAction(info_action)
 
         menu.exec_(self.listview.mapToGlobal(position))
@@ -31,6 +35,10 @@ class FileList(QDockWidget):
             self.parent.addDockWidget(Qt.RightDockWidgetArea, properties)
         except IndexError:
             pass
+
+    def open_file(self):
+        file_to_open = self.listview.selectedItems()[0].data(Qt.UserRole).file_path + "/" +  self.listview.selectedItems()[0].data(Qt.UserRole).file_name
+        open_prog(file_to_open)
 
     def item_clicked(self, event):
         file_to_open = event.data(Qt.UserRole).file_path + "/" +  event.data(Qt.UserRole).file_name
