@@ -1,4 +1,7 @@
 import hashlib
+import subprocess
+import os
+import platform
 
 def calculate_hash(filename):
     sha256_hash = hashlib.sha256()
@@ -15,3 +18,11 @@ def flatten(inlist):
     else:
         outlist+=[inlist]
     return outlist
+
+def open_prog(filepath):
+    if platform.system() == 'Darwin':
+        subprocess.call(('open', filepath))
+    elif platform.system() == 'Windows':
+        os.startfile(filepath)
+    else:
+        subprocess.call(('xdg-open', filepath))
