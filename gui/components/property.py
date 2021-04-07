@@ -10,9 +10,11 @@ class PropertyWindow(QDockWidget):
         name_item = QTreeWidgetItem(["Name", info.file_name])
         hash_item = QTreeWidgetItem(["Hash", info.file_hash])
         location_item = QTreeWidgetItem(["Location", info.file_path])
+        tag_item = QTreeWidgetItem(["Tags", info.tags])
 
         self.treeview.addTopLevelItem(name_item)
         self.treeview.addTopLevelItem(hash_item)
         self.treeview.addTopLevelItem(location_item)
+        self.treeview.addTopLevelItem(tag_item)
 
         self.setWidget(self.treeview)
