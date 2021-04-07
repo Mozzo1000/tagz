@@ -7,7 +7,7 @@ class Tags:
         self.session = session(db)
 
     def get(self, tag):
-        tag = self.session.query(Files).filter(Files.tags.like(tag)).all()
+        tag = self.session.query(Files).filter(Files.tags.like("%" + tag + "%")).all()
         return tag
     
     def get_all(self):
