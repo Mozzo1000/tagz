@@ -5,9 +5,12 @@ from backend.database import init_db, Files, session
 from sqlalchemy.exc import IntegrityError
 
 class Document:
-    def __init__(self, file_name):
+    def __init__(self, file_name, file_hash=None):
         self.file_name = file_name
-        self.file_hash = calculate_hash(file_name)
+        if not file_hash:
+            self.file_hash = calculate_hash(file_name)
+        else:
+            self.file_hash = file_hash
         self.file_path = pathlib.Path(file_name).resolve().parent.as_posix()
 
         db = init_db()
