@@ -10,6 +10,10 @@ class Tags:
         tag = self.session.query(Files).filter(Files.tags.like("%" + tag + "%")).all()
         return tag
     
+    def get_all_untagged(self):
+        tags = self.session.query(Files).filter(Files.tags == '').all()
+        return tags
+    
     def get_all(self):
         tags = self.session.query(Files.tags).all()
         out = [item.split(',') for t in tags for item in t]
