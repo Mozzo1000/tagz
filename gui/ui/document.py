@@ -58,7 +58,7 @@ class EditDocumentWindow(QMainWindow):
         self.setCentralWidget(self.main_widget)
 
     def edit_document(self):
-        doc = Document(self.fileinfo.file_name)
+        doc = Document(self.fileinfo.file_name, file_hash=self.fileinfo.file_hash)
         doc.edit(self.tag_input.text())
         doc.save_to_db()
         self.close()
