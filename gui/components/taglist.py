@@ -43,5 +43,7 @@ class TagList(QDockWidget):
         for row in reader:
             for tag in row:
                 item = QListWidgetItem(str(tag).strip())
+                if item.text():
                     self.listview.addItem(item)
+        self.listview.sortItems()
         
