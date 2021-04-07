@@ -17,7 +17,7 @@ class Gui(QMainWindow):
         sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
         self.setSizePolicy(sizePolicy)
         
-        filelist = FileList()
+        filelist = FileList(self)
         taglist = TagList(filelist)
         self.addDockWidget(Qt.LeftDockWidgetArea, taglist)
         self.addDockWidget(Qt.RightDockWidgetArea, filelist)
