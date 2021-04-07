@@ -1,4 +1,5 @@
 import pathlib
+import os
 from backend.utils import calculate_hash
 from backend.database import init_db, Files, session
 from sqlalchemy.exc import IntegrityError
@@ -13,7 +14,7 @@ class Document:
         self.session = session(db)
     
     def add(self, tags=None):
-        new_file = Files(file_name=self.file_name, file_hash=self.file_hash, file_path=self.file_path, tags='')
+        new_file = Files(file_name=os.path.basename(self.file_name), file_hash=self.file_hash, file_path=self.file_path, tags='')
         if tags:
             new_file.add_tags(tags)
         self.session.add(new_file)
