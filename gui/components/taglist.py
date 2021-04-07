@@ -20,7 +20,6 @@ class TagList(QDockWidget):
         self.setWidget(self.listview)
 
     def item_clicked(self, event):
-        print(self.tags.get(event.text()))
         self.filelist.add_file(self.tags.get(event.text()))
 
     def populate_list(self):
