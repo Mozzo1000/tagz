@@ -1,7 +1,8 @@
 import sqlalchemy as db
-from sqlalchemy import Column, Integer, String, ForeignKey, Table
+from sqlalchemy import Column, Integer, String, ForeignKey, Table, DateTime
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import datetime
 
 Base = declarative_base()
 
@@ -22,6 +23,7 @@ class Files(Base):
     file_path = Column(String, nullable=False)
     file_hash = Column(String, nullable=False, unique=True)
     tags = Column(String)
+    created = Column(DateTime, default=datetime.datetime.utcnow)
 
     def add_tags(self, tags):
         self.tags = tags
