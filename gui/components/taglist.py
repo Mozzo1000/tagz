@@ -9,9 +9,9 @@ class TagList(QDockWidget):
         super().__init__()
         self.filelist = filelist
         self.setWindowTitle('Tags')
-        self.main_widget = QWidget(self)
-        self.layout = QVBoxLayout(self)
-        self.hlayout = QHBoxLayout(self)
+        self.main_widget = QWidget()
+        self.layout = QVBoxLayout()
+        self.hlayout = QHBoxLayout()
 
         self.listview = QListWidget()
         self.listview.itemDoubleClicked.connect(self.item_clicked)
