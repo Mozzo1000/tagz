@@ -6,8 +6,8 @@ class AddDocumentWindow(QMainWindow):
         super().__init__(parent)
         self.fileinfo = fileinfo
         self.setWindowTitle('Add file')
-        self.main_widget = QWidget(self)
-        self.layout = QVBoxLayout(self)
+        self.main_widget = QWidget()
+        self.layout = QVBoxLayout()
 
         file_name_label = QLabel(self)
         file_name_label.setText('File: ')
@@ -42,8 +42,8 @@ class EditDocumentWindow(QMainWindow):
         super().__init__(parent)
         self.fileinfo = fileinfo
         self.setWindowTitle('Edit tags')
-        self.main_widget = QWidget(self)
-        self.layout = QVBoxLayout(self)
+        self.main_widget = QWidget()
+        self.layout = QVBoxLayout()
 
         self.tag_input = QLineEdit(self)
         self.tag_input.setText(fileinfo.tags)
