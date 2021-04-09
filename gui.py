@@ -5,12 +5,14 @@ from PyQt5.QtCore import Qt
 from gui.components.taglist import TagList
 from gui.components.filelist import FileList
 from gui.ui.document import AddDocumentWindow
+from gui.ui.about import AboutWindow
 
 class Gui(QMainWindow):
     def __init__(self):
         super().__init__()
         self.resize(800, 600)
         self.setWindowTitle('Tagz GUI')
+        self.setWindowIcon(QIcon('assets/icon.png'))
         self.setAcceptDrops(True)
 
         self.central_widget = QWidget(self)
@@ -40,10 +42,21 @@ class Gui(QMainWindow):
         add_file_action.setStatusTip('Add file for tagging')
         add_file_action.triggered.connect(self.open_add_file)
 
+        about_action = QAction('&About Tagz', self)
+        about_action.setStatusTip('Show about window')
+        about_action.triggered.connect(self.open_about)
+
         menubar = self.menuBar()
         file_menu = menubar.addMenu('&File')
         file_menu.addAction(add_file_action)
         file_menu.addAction(exit_action)
+
+        help_menu = menubar.addMenu('&Help')
+        help_menu.addAction(about_action)
+
+    def open_about(self):
+        about_window = AboutWindow(self)
+        about_window.show()
 
     def open_add_file(self):
         options = QFileDialog.Options()
