@@ -15,13 +15,15 @@ class AddDocumentWindow(QMainWindow):
         file_name.setText(fileinfo)
         file_name.setReadOnly(True)
 
-
-        self.tag_input = QLineEdit(self)
-        self.tag_input.setPlaceholderText('Tags,go,here')
-
         add_button = QPushButton(self)
         add_button.setText('Add')
         add_button.clicked.connect(self.add_document)
+
+        self.tag_input = QLineEdit(self)
+        self.tag_input.setPlaceholderText('Tags,go,here')
+        self.tag_input.returnPressed.connect(add_button.click)
+
+        
 
         self.layout.addWidget(file_name_label)
         self.layout.addWidget(file_name)
@@ -45,11 +47,14 @@ class EditDocumentWindow(QMainWindow):
         self.main_widget = QWidget()
         self.layout = QVBoxLayout()
 
-        self.tag_input = QLineEdit(self)
-        self.tag_input.setText(fileinfo.tags)
-
         save_button = QPushButton('Save')
         save_button.clicked.connect(self.edit_document)
+
+        self.tag_input = QLineEdit(self)
+        self.tag_input.setText(fileinfo.tags)
+        self.tag_input.returnPressed.connect(save_button.click)
+
+        
 
         self.layout.addWidget(self.tag_input)
         self.layout.addWidget(save_button)
