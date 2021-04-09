@@ -38,7 +38,7 @@ class FileList(QDockWidget):
             edit_window = EditDocumentWindow(self, self.listview.selectedItems()[0].data(Qt.UserRole))
             edit_window.show()
         except IndexError:
-            QMessageBox.about(self, "Info", "Please select a file first to edit tags")
+            QMessageBox.warning(self, "Warning", "Please select a file first to edit tags")
 
 
     def open_properties(self):
@@ -46,14 +46,14 @@ class FileList(QDockWidget):
             properties = PropertyWindow(self.listview.selectedItems()[0].data(Qt.UserRole))
             self.parent.addDockWidget(Qt.RightDockWidgetArea, properties)
         except IndexError:
-            QMessageBox.about(self, "Info", "Please select a file first to show info")
+            QMessageBox.warning(self, "Warning", "Please select a file first to show info")
 
     def open_file(self):
         try:
             file_to_open = self.listview.selectedItems()[0].data(Qt.UserRole).file_path + "/" +  self.listview.selectedItems()[0].data(Qt.UserRole).file_name
             open_prog(file_to_open)
         except:
-            QMessageBox.about(self, "Info", "Please select a file first to open")
+            QMessageBox.warning(self, "Warning", "Please select a file first to open")
 
     def item_clicked(self, event):
         file_to_open = event.data(Qt.UserRole).file_path + "/" +  event.data(Qt.UserRole).file_name
