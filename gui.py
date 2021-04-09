@@ -23,8 +23,8 @@ class Gui(QMainWindow):
         self.setSizePolicy(sizePolicy)
         
         filelist = FileList(self)
-        taglist = TagList(filelist)
-        self.addDockWidget(Qt.LeftDockWidgetArea, taglist)
+        self.taglist = TagList(filelist)
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.taglist)
         self.addDockWidget(Qt.RightDockWidgetArea, filelist)
 
         self._menubar()

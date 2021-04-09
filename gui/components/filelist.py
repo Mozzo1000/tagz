@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt
 from .property import PropertyWindow
 from backend.utils import open_prog
 from ..ui.document import EditDocumentWindow
+from lib.document import Document
 
 class FileList(QDockWidget):
     def __init__(self, parent):
@@ -26,12 +27,23 @@ class FileList(QDockWidget):
         info_action.triggered.connect(self.open_properties)
         edit_action = QAction('Edit', self)
         edit_action.triggered.connect(self.open_edit)
+        remove_action = QAction('Remove', self)
+        remove_action.triggered.connect(self.remove)
 
         menu.addAction(open_action)
         menu.addAction(info_action)
         menu.addAction(edit_action)
+        menu.addAction(remove_action)
 
         menu.exec_(self.listview.mapToGlobal(position))
+
+    def remove(self):
+        data = self.listview.selectedItems()[0].data(Qt.UserRole)
+        file = Document(file_name=data.file_name, file_hash=data.file_hash)
+        file.remove()
+        file.save_to_db()
+        self.listview.takeItem(self.listview.currentRow())
+        self.parent.taglist.refresh_listview()
 
     def open_edit(self):
         try:
