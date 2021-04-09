@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDockWidget, QListWidget, QListWidgetItem, QMenu, QAction, QStyle
+from PyQt5.QtWidgets import QDockWidget, QListWidget, QListWidgetItem, QMenu, QAction, QStyle, QMessageBox
 import PyQt5.QtCore
 from PyQt5.QtCore import Qt
 from .property import PropertyWindow
@@ -34,19 +34,26 @@ class FileList(QDockWidget):
         menu.exec_(self.listview.mapToGlobal(position))
 
     def open_edit(self):
-        edit_window = EditDocumentWindow(self, self.listview.selectedItems()[0].data(Qt.UserRole))
-        edit_window.show()
+        try:
+            edit_window = EditDocumentWindow(self, self.listview.selectedItems()[0].data(Qt.UserRole))
+            edit_window.show()
+        except IndexError:
+            QMessageBox.about(self, "Info", "Please select a file first to edit tags")
+
 
     def open_properties(self):
         try:
             properties = PropertyWindow(self.listview.selectedItems()[0].data(Qt.UserRole))
             self.parent.addDockWidget(Qt.RightDockWidgetArea, properties)
         except IndexError:
-            pass
+            QMessageBox.about(self, "Info", "Please select a file first to show info")
 
     def open_file(self):
-        file_to_open = self.listview.selectedItems()[0].data(Qt.UserRole).file_path + "/" +  self.listview.selectedItems()[0].data(Qt.UserRole).file_name
-        open_prog(file_to_open)
+        try:
+            file_to_open = self.listview.selectedItems()[0].data(Qt.UserRole).file_path + "/" +  self.listview.selectedItems()[0].data(Qt.UserRole).file_name
+            open_prog(file_to_open)
+        except:
+            QMessageBox.about(self, "Info", "Please select a file first to open")
 
     def item_clicked(self, event):
         file_to_open = event.data(Qt.UserRole).file_path + "/" +  event.data(Qt.UserRole).file_name
