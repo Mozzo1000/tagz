@@ -24,5 +24,15 @@ There are currently no instructions or files available for you to install tagz. 
 * Python 3 (tested with 3.9.4)
 * PyQt5
 
+## Folder structure
+| Folder        | Description                 |
+| ------------- |:---------------------------:|
+| assets        | images, icons etc           |
+| backend       | database                    |
+| docs          | documentation, github pages |
+| gui           | code for the GUI            |
+| lib           | shared code                 |
+
+
 # License
 `tagz` is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
