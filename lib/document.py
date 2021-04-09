@@ -29,6 +29,10 @@ class Document:
         else:
             print("File does not exist in database")
 
+    def remove(self):
+        file = self.session.query(Files).filter_by(file_hash=self.file_hash).first()
+        self.session.delete(file)
+
     def save_to_db(self):
         try:
             self.session.commit()
