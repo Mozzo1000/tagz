@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QDockWidget, QListWidget, QListWidgetItem, QMenu, QAction, QStyle, QMessageBox
+from PyQt5.QtWidgets import QDockWidget, QListWidget, QListWidgetItem, QMenu, QAction, QStyle, QMessageBox, QFileIconProvider
 import PyQt5.QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QFileInfo
 from .property import PropertyWindow
 from backend.utils import open_prog
 from ..ui.document import EditDocumentWindow
@@ -85,6 +85,10 @@ class FileList(QDockWidget):
         for object in file_objects:
             item = QListWidgetItem(object.file_name)
             item.setData(Qt.UserRole, object)
-            item.setIcon(self.style().standardIcon(getattr(QStyle, 'SP_FileIcon')))
+
+            fileinfo = QFileInfo(object.file_path + "/" + object.file_name)
+            iconprovider = QFileIconProvider()
+            icon = iconprovider.icon(fileinfo)
+            item.setIcon(icon)
             self.listview.addItem(item)
         
