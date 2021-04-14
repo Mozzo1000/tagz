@@ -5,6 +5,7 @@ from .property import PropertyWindow
 from backend.utils import open_prog
 from ..ui.document import EditDocumentWindow
 from lib.document import Document
+from .preview import FilePreview
 
 class FileList(QDockWidget):
     def __init__(self, parent):
@@ -14,10 +15,21 @@ class FileList(QDockWidget):
 
         self.listview = QListWidget()
         self.listview.itemDoubleClicked.connect(self.item_clicked)
+        self.listview.itemClicked.connect(self.item_selected)
         self.listview.setContextMenuPolicy(Qt.CustomContextMenu)
         self.listview.customContextMenuRequested.connect(self.open_action_menu)
         
         self.setWidget(self.listview)
+
+    def item_selected(self, event):
+        for dock in self.parent.findChildren(QDockWidget):
+            dock_widget = dock
+        if not "Preview" in dock_widget.windowTitle():
+            preview = FilePreview(event)
+            self.parent.addDockWidget(Qt.RightDockWidgetArea, preview)
+        else:
+            dock_widget.show()
+            dock_widget.update_preview(event)
 
     def open_action_menu(self, position):
         menu = QMenu()
