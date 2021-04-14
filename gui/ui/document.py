@@ -12,7 +12,7 @@ class AddDocumentWindow(QMainWindow):
         file_name_label = QLabel(self)
         file_name_label.setText('File: ')
         file_name = QLineEdit(self)
-        file_name.setText(fileinfo)
+        file_name.setText(str(fileinfo))
         file_name.setReadOnly(True)
 
         add_button = QPushButton(self)
@@ -34,10 +34,12 @@ class AddDocumentWindow(QMainWindow):
         self.setCentralWidget(self.main_widget)
 
     def add_document(self):
-        new_doc = Document(self.fileinfo)
-        new_doc.add(self.tag_input.text())
-        new_doc.save_to_db()
+        for i in range(len(self.fileinfo)):
+            new_doc = Document(self.fileinfo[i])
+            new_doc.add(self.tag_input.text())
+            new_doc.save_to_db()
         self.close()
+
 
 class EditDocumentWindow(QMainWindow):
     def __init__(self, parent, fileinfo):

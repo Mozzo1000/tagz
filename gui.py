@@ -39,7 +39,7 @@ class Gui(QMainWindow):
         exit_action.setStatusTip('Exit application')
         exit_action.triggered.connect(qApp.quit)
 
-        add_file_action = QAction('&Add file', self)
+        add_file_action = QAction('&Add file(s)', self)
         add_file_action.setStatusTip('Add file for tagging')
         add_file_action.triggered.connect(self.open_add_file)
 
@@ -81,11 +81,10 @@ class Gui(QMainWindow):
     def open_add_file(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"Select file", "","All Files (*)", options=options)
+        fileName, _ = QFileDialog.getOpenFileNames(self,"Select file", "","All Files (*)", options=options)
         if fileName:
             add_document = AddDocumentWindow(self, fileName)
             add_document.show()
-            print(fileName)
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
