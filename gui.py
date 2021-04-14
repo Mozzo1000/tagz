@@ -7,6 +7,7 @@ from gui.components.filelist import FileList
 from gui.ui.document import AddDocumentWindow
 from gui.ui.about import AboutWindow
 from gui.components.search import GlobalSearchWindow
+from gui.ui.settings import SettingsWindow
 
 class Gui(QMainWindow):
     def __init__(self):
@@ -43,6 +44,10 @@ class Gui(QMainWindow):
         add_file_action.setStatusTip('Add file for tagging')
         add_file_action.triggered.connect(self.open_add_file)
 
+        open_settings_action = QAction('&Settings', self)
+        open_settings_action.setStatusTip('Open settings')
+        open_settings_action.triggered.connect(self.open_settings)
+
         about_action = QAction('&About Tagz', self)
         about_action.setStatusTip('Show about window')
         about_action.triggered.connect(self.open_about)
@@ -55,6 +60,7 @@ class Gui(QMainWindow):
         menubar = self.menuBar()
         file_menu = menubar.addMenu('&File')
         file_menu.addAction(add_file_action)
+        file_menu.addAction(open_settings_action)
         file_menu.addAction(exit_action)
 
         search_menu = menubar.addMenu('&Search')
@@ -62,6 +68,10 @@ class Gui(QMainWindow):
 
         help_menu = menubar.addMenu('&Help')
         help_menu.addAction(about_action)
+
+    def open_settings(self):
+        settings = SettingsWindow(self)
+        settings.show()
 
     def open_global_search(self):
         for dock in self.findChildren(QDockWidget):
