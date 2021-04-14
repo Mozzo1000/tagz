@@ -6,6 +6,7 @@ from gui.components.taglist import TagList
 from gui.components.filelist import FileList
 from gui.ui.document import AddDocumentWindow
 from gui.ui.about import AboutWindow
+from gui.components.search import GlobalSearchWindow
 
 class Gui(QMainWindow):
     def __init__(self):
@@ -22,10 +23,10 @@ class Gui(QMainWindow):
         sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
         self.setSizePolicy(sizePolicy)
         
-        filelist = FileList(self)
-        self.taglist = TagList(filelist)
+        self.filelist = FileList(self)
+        self.taglist = TagList(self.filelist)
         self.addDockWidget(Qt.LeftDockWidgetArea, self.taglist)
-        self.addDockWidget(Qt.RightDockWidgetArea, filelist)
+        self.addDockWidget(Qt.RightDockWidgetArea, self.filelist)
 
         self._menubar()
         
@@ -46,13 +47,24 @@ class Gui(QMainWindow):
         about_action.setStatusTip('Show about window')
         about_action.triggered.connect(self.open_about)
 
+        global_search_action = QAction('&Global search', self)
+        global_search_action.setStatusTip('Show global search window')
+        global_search_action.triggered.connect(self.open_global_search)
+
         menubar = self.menuBar()
         file_menu = menubar.addMenu('&File')
         file_menu.addAction(add_file_action)
         file_menu.addAction(exit_action)
 
+        search_menu = menubar.addMenu('&Search')
+        search_menu.addAction(global_search_action)
+
         help_menu = menubar.addMenu('&Help')
         help_menu.addAction(about_action)
+
+    def open_global_search(self):
+        search_window = GlobalSearchWindow(self.filelist)
+        self.addDockWidget(Qt.LeftDockWidgetArea, search_window)
 
     def open_about(self):
         about_window = AboutWindow(self)
