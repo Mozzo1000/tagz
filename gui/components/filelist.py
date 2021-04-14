@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QDockWidget, QListWidget, QListWidgetItem, QMenu, QAction, QStyle, QMessageBox, QFileIconProvider
 import PyQt5.QtCore
-from PyQt5.QtCore import Qt, QFileInfo
+from PyQt5.QtCore import Qt, QFileInfo, QSettings
 from .property import PropertyWindow
 from backend.utils import open_prog
 from ..ui.document import EditDocumentWindow
@@ -15,7 +15,8 @@ class FileList(QDockWidget):
 
         self.listview = QListWidget()
         self.listview.itemDoubleClicked.connect(self.item_clicked)
-        self.listview.itemClicked.connect(self.item_selected)
+        if QSettings('tagz', 'app').value('default_preview'):
+            self.listview.itemClicked.connect(self.item_selected)
         self.listview.setContextMenuPolicy(Qt.CustomContextMenu)
         self.listview.customContextMenuRequested.connect(self.open_action_menu)
         
