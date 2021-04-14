@@ -40,10 +40,13 @@ class FileList(QDockWidget):
     def remove(self):
         data = self.listview.selectedItems()[0].data(Qt.UserRole)
         file = Document(file_name=data.file_name, file_hash=data.file_hash)
-        file.remove()
-        file.save_to_db()
-        self.listview.takeItem(self.listview.currentRow())
-        self.parent.taglist.refresh_listview()
+
+        message = QMessageBox.question(self, 'Remove file', 'Are you sure you want to permanently remove this file?\nFilename: ' + data.file_name, QMessageBox.Yes | QMessageBox.No)
+        if message == QMessageBox.Yes:
+            file.remove()
+            file.save_to_db()
+            self.listview.takeItem(self.listview.currentRow())
+            self.parent.taglist.refresh_listview()
 
     def open_edit(self):
         try:
