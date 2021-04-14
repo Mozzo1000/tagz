@@ -15,6 +15,12 @@ class Document:
 
         db = init_db()
         self.session = session(db)
+
+    def get(self, option='filename'):
+        if option == 'filename':
+            result = self.session.query(Files).filter(Files.file_name.like("%" + self.file_name + "%")).all()
+            return result
+        return "No supported option type selected"
     
     def add(self, tags=None):
         new_file = Files(file_name=os.path.basename(self.file_name), file_hash=self.file_hash, file_path=self.file_path, tags='')
