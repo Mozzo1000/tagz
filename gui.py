@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, qApp, QWidget, QSizePolicy, QMenu, QAction, QFileDialog
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QMainWindow, QApplication, qApp, QWidget, QSizePolicy, QMenu, QAction, QFileDialog, QDockWidget
+from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtCore import Qt
 from gui.components.taglist import TagList
 from gui.components.filelist import FileList
@@ -50,6 +50,7 @@ class Gui(QMainWindow):
         global_search_action = QAction('&Global search', self)
         global_search_action.setStatusTip('Show global search window')
         global_search_action.triggered.connect(self.open_global_search)
+        global_search_action.setShortcut(QKeySequence("Ctrl+F"))
 
         menubar = self.menuBar()
         file_menu = menubar.addMenu('&File')
@@ -63,8 +64,15 @@ class Gui(QMainWindow):
         help_menu.addAction(about_action)
 
     def open_global_search(self):
-        search_window = GlobalSearchWindow(self.filelist)
-        self.addDockWidget(Qt.LeftDockWidgetArea, search_window)
+        for dock in self.findChildren(QDockWidget):
+            dock_widget = dock
+        if not "Global search" in dock_widget.windowTitle():
+            search_window = GlobalSearchWindow(self.filelist)
+            self.addDockWidget(Qt.LeftDockWidgetArea, search_window)
+        else:
+            dock_widget.show()
+            dock_widget.search_input.setFocus()
+
 
     def open_about(self):
         about_window = AboutWindow(self)
