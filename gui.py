@@ -89,9 +89,7 @@ class Gui(QMainWindow):
         about_window.show()
 
     def open_add_file(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileNames(self,"Select file", "","All Files (*)", options=options)
+        fileName, _ = QFileDialog.getOpenFileNames(self,"Select file", "","All Files (*)")
         if fileName:
             add_document = AddDocumentWindow(self, fileName)
             add_document.show()
