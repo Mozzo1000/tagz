@@ -43,7 +43,7 @@ class SettingsWindow(QMainWindow):
         layout = QFormLayout()
 
         self.show_preview_by_default = QCheckBox("Show preview by default", self)
-        self.show_preview_by_default.setTristate(False)
+        self.show_preview_by_default.setTristate(False)        
 
         layout.addRow(self.show_preview_by_default)
 
@@ -56,10 +56,9 @@ class SettingsWindow(QMainWindow):
         if self.settings.contains('default_preview'):
             self.show_preview_by_default.setCheckState(self.settings.value('default_preview'))
         else:
-            self.settings.setValue('default_preview', True)
+            self.settings.setValue('default_preview', 2)
 
     def save_settings(self):
-        print("SAVE SETTINGS")
         self.settings.setValue('default_preview', self.show_preview_by_default.checkState())
 
         QMessageBox.question(self, 'Info', 'Please restart the application for changes to take affect.', QMessageBox.Ok)
