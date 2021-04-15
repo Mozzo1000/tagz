@@ -3,7 +3,10 @@ nav:
     - Home: index.md
     - About: about.md
     - Reference: reference.md
-theme: material
+theme:
+  name: material
+  favicon: img/favicon.ico
+
 plugins:
     - search
     - mkdocstrings
