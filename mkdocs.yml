@@ -2,4 +2,8 @@ site_name: Tagz documentation
 nav:
     - Home: index.md
     - About: about.md
-theme: readthedocs
+    - Reference: reference.md
+theme: material
+plugins:
+    - search
+    - mkdocstrings
