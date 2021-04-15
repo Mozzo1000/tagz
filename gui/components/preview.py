@@ -9,6 +9,7 @@ class FilePreview(QDockWidget):
         self.setWindowTitle('Preview')
         self.allowed_images = ['png', 'jpg', 'jpeg', 'bmp', 'svg']
         self.allowed_videos = ['gif']
+        self.allowed_texts = ['txt']
 
         self.label = QLabel()
 
@@ -25,6 +26,8 @@ class FilePreview(QDockWidget):
             self.show_image()
         elif file_info.completeSuffix() in self.allowed_videos:
             self.show_video()
+        elif file_info.completeSuffix() in self.allowed_texts:
+            self.show_text()
         else:
             self.label.setText('The selected file cannot be previewed')
             self.label.adjustSize()
@@ -45,5 +48,11 @@ class FilePreview(QDockWidget):
         video = QMovie(self.data.data(Qt.UserRole).file_path + "/" + self.data.data(Qt.UserRole).file_name)
         self.label.setMovie(video)
         video.start()
+        self.label.adjustSize()
+
+    def show_text(self):
+        f = open(self.data.data(Qt.UserRole).file_path + "/" + self.data.data(Qt.UserRole).file_name, 'r')
+        self.label.setText(f.read())
+        f.close()
         self.label.adjustSize()
 
