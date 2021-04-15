@@ -28,6 +28,10 @@ There are currently no instructions or files available for you to install tagz. 
 * [mkdocs](https://github.com/mkdocs/mkdocs)
 * [mkdocs-material](https://github.com/squidfunk/mkdocs-material)
 * [mkdocstrings](https://github.com/mkdocstrings/mkdocstrings)
+## Deploying documentation
+* Run `mkdocs gh-deploy`
+## Running documentation server locally
+* Run `mkdocs serve` from same directory as `mkdocs.yml`
 
 ## Folder structure
 | Folder        | Description                 |
