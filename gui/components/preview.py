@@ -7,7 +7,7 @@ class FilePreview(QDockWidget):
         super().__init__()
         self.data = data
         self.setWindowTitle('Preview')
-        self.allowed_images = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
+        self.allowed_images = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'svg']
 
         self.label = QLabel()
 
