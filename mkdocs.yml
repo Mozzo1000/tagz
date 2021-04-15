@@ -1,0 +1,5 @@
+site_name: Tagz documentation
+nav:
+    - Home: index.md
+    - About: about.md
+theme: readthedocs
