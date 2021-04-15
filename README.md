@@ -24,6 +24,11 @@ There are currently no instructions or files available for you to install tagz. 
 * Python 3 (tested with 3.9.4)
 * PyQt5
 
+## Documentation dependencies
+* [mkdocs](https://github.com/mkdocs/mkdocs)
+* [mkdocs-material](https://github.com/squidfunk/mkdocs-material)
+* [mkdocstrings](https://github.com/mkdocstrings/mkdocstrings)
+
 ## Folder structure
 | Folder        | Description                 |
 | ------------- |:---------------------------:|
