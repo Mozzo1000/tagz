@@ -33,6 +33,8 @@ There are currently no instructions or files available for you to install tagz. 
 | gui           | code for the GUI            |
 | lib           | shared code                 |
 
+# Documentation
+Documentation can be found [here](https://mozzo1000.github.io/tagz)
 
 # License
 `tagz` is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
