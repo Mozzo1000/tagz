@@ -2,6 +2,11 @@ from PyQt5.QtWidgets import QDockWidget, QTreeWidget, QTreeWidgetItem
 
 class PropertyWindow(QDockWidget):
     def __init__(self, info):
+        """Property Window
+
+        Args:
+            info ([type]): [description]
+        """
         super().__init__()
         self.setWindowTitle('Info')
 
