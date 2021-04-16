@@ -1,4 +1,6 @@
 site_name: Tagz documentation
+repo_url: https://github.com/mozzo1000/tagz
+repo_name: mozzo1000/tagz
 nav:
     - Home: index.md
     - About: about.md
@@ -7,6 +9,8 @@ theme:
   name: material
   favicon: img/favicon.ico
   logo: img/logo.png
+  icon:
+    repo: fontawesome/brands/github
 
 plugins:
     - search
