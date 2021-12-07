@@ -3,11 +3,12 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Table, DateTime
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import datetime
+from pathlib import Path
 
 Base = declarative_base()
 
-def init_db(filename='tags.db', path='', backend='sqlite:///', debug=False):
-    engine = db.create_engine(f'{backend}{path}{filename}', echo=debug)
+def init_db(filename='tags.db', path=Path.home(), backend='sqlite:///', debug=False):
+    engine = db.create_engine(f'{backend}{path}/{filename}', echo=debug)
     Base.metadata.create_all(engine)
     return engine.connect()
 
