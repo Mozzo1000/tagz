@@ -19,6 +19,10 @@ Tagz allows you to tag any and all files on your computer to be able to find the
 # Installation
 There are currently no instructions or files available for you to install tagz. At the moment you need to build from source.
 
+# Packaging application
+Pyinstaller
+`pyinstaller gui_client.spec`
+
 # Development
 ## Dependencies
 * Python 3 (tested with 3.9.4)
