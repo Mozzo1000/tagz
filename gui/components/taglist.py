@@ -46,6 +46,8 @@ class TagList(QDockWidget):
             item.setHidden(True)
         for item in items:
             item.setHidden(False)
+        items[0].setSelected(True)
+        self.filelist.add_file(self.tags.get(items[0].text()))
     
     def open_action_menu(self, position):
         menu = QMenu()
